@@ -1014,39 +1014,36 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>062315</title></head><body><article class="markdown-body"><h1 id="c-and-python"><a name="user-content-c-and-python" href="#c-and-python" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>C++ and Python 项目研究</h1>
-<h2 id="c"><a name="user-content-c" href="#c" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>c++ 依赖关系文件路径</h2>
-<h3 id="includepath"><a name="user-content-includepath" href="#includepath" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>includepath</h3>
-<table>
-<thead>
-<tr>
-<th><em>Table</em></th>
-<th><em>系统路径</em></th>
-<th><em>当前路径</em></th>
-<th><em>添加路径</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>gcc/g++</td>
-<td>?</td>
-<td>?</td>
-<td>?</td>
-</tr>
-<tr>
-<td>MSVC</td>
-<td>VC_IncludePath WindowsSDK_IncludePath</td>
-<td>.dsw所在路径</td>
-<td>.vcxproj配置文件 <a href="https://github.com/tbxy09/VisualStudioProjExample/blob/master/tradermain.vcxproj">例子</a></td>
-</tr>
-</tbody>
-</table>
-<h3 id="libpath"><a name="user-content-libpath" href="#libpath" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>libpath</h3>
-<h3 id="srcpath"><a name="user-content-srcpath" href="#srcpath" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>srcpath</h3>
-<h2 id="python-import-module"><a name="user-content-python-import-module" href="#python-import-module" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>python import module</h2>
-<p>在CTP行情和数据开发项目中，当import pyhon 包装的C++ Api接口的时候。研究了下python的库的<em>引入路径</em></p>
-<p>我的编译环境是pycharm，pycharm在指明你的编译器路径的时候，会把编译器路径下库的路径引入，相当于<em>系统路径</em>。会加入到sys.path当中。pycharm只会在<em>当前路径</em>直接路径下找module，不会再子文件夹中继续找。要引入自己的module必须加入到系统路径中：</p>
-<p><pre><code class="python">import sys
-sys.path.extend(['d:\\...\\...'])
-</code></pre><br />
-但是即使这样，文件在执行前仍然会有module找不到的错误提示。但是执行后没有错误。</p></article></body></html>
+</style><title>062215晚</title></head><body><article class="markdown-body"><h1 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>知乎网站架构研究</h1>
+<blockquote>
+<p>我用代码&rsquo;[TOC]&rsquo;在此生成目录</p>
+</blockquote>
+<div class="toc">
+<ul>
+<li><a href="#_1">知乎网站架构研究</a><ul>
+<li><a href="#_2">说法一</a></li>
+<li><a href="#_3">今日关键词</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>我的理解</strong></p>
+<blockquote>
+<p>前端 数据 搜索：前端用来页面呈现和交互，数据管理(标签化，可搜索)</p>
+</blockquote>
+<h2 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>说法一</h2>
+<ul>
+<li>Python框架</li>
+<li>MySQL数据库</li>
+<li><a href="http://redis.readthedocs.org/en/latest/index.html">缓存技术</a></li>
+<li>JavaScript框架:Clouser Library</li>
+<li>负载处理</li>
+<li>图片服务器</li>
+<li>消息系统</li>
+<li>虚拟环境</li>
+<li>代码部署</li>
+<li>搜索实现<br />
+  知乎使用了mmseg作为中文分词，对应的四根存在redis中作为key,数据库id作为value,每个数据项是个zset集合，查询根据key找到对应value</li>
+</ul>
+<h2 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>今日关键词</h2>
+<p>利用关注和发现有价值的信息得以“上浮”与“驻留”。</p></article></body></html>
