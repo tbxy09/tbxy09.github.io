@@ -34,7 +34,7 @@ Pycharm一个是调试方面，另外一个方面是它可以在python2.7 和pyt
 python package下载的渠道很方便，版本也很清晰，可以不用通过pip install
 我把layout也作为了两个column的，在菜单View->layout里头可以配置
 
-![](D:\GitHub\tbxy09.github.io\mdfiles\sublime+Anocoda+Pycharm的环境.png)
+![](http://tbxy09.github.io/mdfiles/sublime+Anocoda+Pycharm%E7%9A%84%E7%8E%AF%E5%A2%83.png)
 
 
 
