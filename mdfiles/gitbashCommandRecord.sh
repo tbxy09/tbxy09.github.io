@@ -610,3 +610,133 @@ $ ^C
 
 Administrator@SKY-20150108YSF MINGW64 /d/gitHub/tbxy09.github.io (master)
 $
+
+
+
+
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj
+$ git remote add origin git@github.com:tbxy09/PythonPrj.git
+fatal: Not a git repository (or any of the parent directories): .git
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj
+$ git remote add origin 'git@github.com:tbxy09/PythonPrj.git'
+fatal: Not a git repository (or any of the parent directories): .git
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj
+$ git remote add origin git@github.com:tbxy09/PythonPrj.git
+fatal: Not a git repository (or any of the parent directories): .git
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj
+$ git init
+Initialized empty Git repository in D:/GitHub/PythonPrj/.git/
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git remote add origin git@github.com:tbxy09/PythonPrj.git
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git pull
+remote: Counting objects: 10, done.
+remote: Total 10 (delta 0), reused 0 (delta 0), pack-reused 10
+Unpacking objects: 100% (10/10), done.
+From github.com:tbxy09/PythonPrj
+ * [new branch]      master     -> origin/master
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> master
+
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ dir
+QTrade  UnderLineTest
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git add --all
+warning: LF will be replaced by CRLF in QTrade/ctp_data_type.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in UnderLineTest/ctp_data_type.py.
+The file will have its original line endings in your working directory.
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git commit -n 'upodate Qtrade and Underlinetest to git'
+error: pathspec 'upodate Qtrade and Underlinetest to git' did not match any file
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git commit -u 'upodate Qtrade and Underlinetest to git'
+error: pathspec 'upodate Qtrade and Underlinetest to git' did not match any file
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git commit -m 'upodate Qtrade and Underlinetest to git'
+[master (root-commit) 0276639] upodate Qtrade and Underlinetest to git
+warning: LF will be replaced by CRLF in QTrade/ctp_data_type.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in UnderLineTest/ctp_data_type.py.
+The file will have its original line endings in your working directory.
+ 13 files changed, 12898 insertions(+)
+ create mode 100644 QTrade/DemoApi.py
+ create mode 100644 QTrade/ctp_data_type.py
+ create mode 100644 QTrade/test.py
+ create mode 100644 UnderLineTest/A.py
+ create mode 100644 UnderLineTest/A.pyc
+ create mode 100644 UnderLineTest/B.py
+ create mode 100644 UnderLineTest/B.pyc
+ create mode 100644 UnderLineTest/README.txt
+ create mode 100644 UnderLineTest/cd
+ create mode 100644 UnderLineTest/ctp_data_type.py
+ create mode 100644 UnderLineTest/main.py
+ create mode 100644 UnderLineTest/python
+ create mode 100644 UnderLineTest/sessionlog.sh
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git pull
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> master
+
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git pull origin master
+From github.com:tbxy09/PythonPrj
+ * branch            master     -> FETCH_HEAD
+Merge made by the 'recursive' strategy.
+ .idea/.name                  |   1 +
+ .idea/misc.xml               |  21 +++
+ .idea/modules.xml            |   8 +
+ .idea/tornado_helloworld.iml |   8 +
+ .idea/vcs.xml                |   6 +
+ .idea/workspace.xml          | 398 +++++++++++++++++++++++++++++++++++++++++++
+ tornado_helloword.py         |  21 +++
+ 7 files changed, 463 insertions(+)
+ create mode 100644 .idea/.name
+ create mode 100644 .idea/misc.xml
+ create mode 100644 .idea/modules.xml
+ create mode 100644 .idea/tornado_helloworld.iml
+ create mode 100644 .idea/vcs.xml
+ create mode 100644 .idea/workspace.xml
+ create mode 100644 tornado_helloword.py
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$ git push origin master
+Counting objects: 17, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (16/16), done.
+Writing objects: 100% (17/17), 38.24 KiB | 0 bytes/s, done.
+Total 17 (delta 1), reused 0 (delta 0)
+To git@github.com:tbxy09/PythonPrj.git
+   d11dfe2..eca8328  master -> master
+
+Administrator@SKY-20150108YSF MINGW64 /d/GitHub/PythonPrj (master)
+$
+
