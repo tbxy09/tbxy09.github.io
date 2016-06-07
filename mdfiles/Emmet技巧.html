@@ -1,0 +1,93 @@
+<div id="article_content" class="article_content">
+
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+因为开始做web项目，所以最近在用sublime编辑器，知道了一个传说中的emmet，原名是zen coding。html神插件可以说是。文章部分内容转自http://www.cnblogs.com/meetrice/archive/2013/01/27/2878548.html</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+在sublime 中，促发emmet 可以先保存为.html文件。然后输入下面的简写，按tab键就可促发效果了。</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+</p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t0"></a>
+1. 生成html格式</h2>
+<div><br>
+</div>
+输入 html:5
+<p></p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t1"></a>
+2. 简写Div</h2>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<br>
+</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/1.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<span style="margin:0px; padding:0px">大家可以看到，不管你是否添加了div，Emmet都会自动生成需要div元素。</span></p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t2"></a>
+含糊标签名称</h2>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+这个技巧属于implicit tag names特性，你不需要指定div或者li，Emmet会自动帮助你生成，如下：</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/2.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t3"></a>
+3. 带有DOM导航的链式缩写</h2>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+如果你使用Emmet来扩展简单的class名称生成div的话。这个方式可以帮助你省去大量的时间。你只需要记住如下语法：</p>
+<blockquote style="margin:10px 0px 10px 25px; padding:5px 10px; border:2px solid rgb(239,239,239); color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<ul style="margin:0px 0px 0px 45px; padding:0px">
+<li style="margin:0px; padding:0px; list-style:inherit">&gt; 子节点：在DOM树下一层添加创建一个元素</li><li style="margin:0px; padding:0px; list-style:inherit">+ 同级别：在DOM树同一层添加创建一个元素</li><li style="margin:0px; padding:0px; list-style:inherit">^ 向上层：向上一层添加创建创建一个元素。</li></ul>
+</blockquote>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/3.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/4.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<h3 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t4"></a>
+向上一层</h3>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/5.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+如果需要的话你可以向上多层，如下：</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/6.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t5"></a>
+4. 使用分组来简化你的代码结构</h2>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+有的时候你可能会发现使用向上符号比较复杂，这时候可能使用分组更加的合理。如下：</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/7.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+一个更复杂一些的例子，如下：</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/8.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" width="600" height="400" style="margin:0px; padding:0px; border:0px"></p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t6"></a>
+5. 插入文本和属性</h2>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+如果你需要生成HTML，内容和属性也是你常常需要添加的。很多开发人员只是使用Emmet来生成框架，然后再添加内容。其实你可以在生成页面框架的过程中同时添加属性和内容。</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+从下面代码可以看到，你输入的文字和属性都可以分别通过大括号和中括号来生成。</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/9.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t7"></a>
+6. 添加多个class到一个元素&nbsp;</h2>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+这个非常简单，你只需要使用逗号来添加多个class，如下：</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/10.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t8"></a>
+7. &nbsp;重复添加</h2>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+这可能是最让人舒服的操作了，帮助你重复添加元素：</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/11.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+如果你整合分组功能，那么你将能够处理更复杂的HTML生成：</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/12.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<h2 style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:24px"><a name="t9"></a>
+8. 自动列表记数&nbsp;</h2>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+如果你需要按顺序生成HTML元素，这个技巧你一定喜欢，使用$符号可以帮助你生成一系列数字，支持class，id，属性，内容等等。如下：</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+<img src="http://www.gbin1.com/technology/html/20130117-tips-for-emmet/13.jpg" alt="分享7个超实用的Emmet（zen coding）HTML代码使用技巧" style="margin:0px; padding:0px; border:0px"></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:24px">
+注意如果你需要生成2位的数字，使用两个$符号即可。&nbsp;</p>
+   
+</div>
