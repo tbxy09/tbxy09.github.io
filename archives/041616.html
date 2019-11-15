@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h2 id="cmd-和-git-中的代理设置">CMD 和 Git 中的代理设置</h2>
+<p>CMD 设置代理 在 cmd 环境下设置代理可能不是很常用，但是某些情况下还是可能会用到，比如公司的电脑只能通过设置代理访问外网，而你需要在 cmd 环境下使用 gem 命令更新文件时。 当然，如果你使用某些代理软件为所有通讯设置了代理，那就不需要这些设置了。</p>
+<p>为 cmd 设置代理很简单，首先打开 cmd （win + R，输入 cmd，然后按 enter 键），然后输入如下命令：</p>
+<p>set http_proxy=http://proxy.yourname.com:8080 其中 http://proxy.yourname.com 是你的代理服务器地址，而 8080 是端口号，如果有则设置。另外，如果你的代理服务器要求用户名和密码的话，那么还需要：</p>
+<p>set http_proxy_user= set http_proxy_pass= 设置完成后，就可以在 cmd 下正常使用网络了。</p>
+<p>Git 设置代理</p>
+<p>Git 的代理设置也非常简单，一句话就搞定了：</p>
+<p>git config --global http.proxy http://10.10.10.10:8080 如果需要用户名密码的话，则设置：</p>
+<p>git config –global http.proxy http://user:password@http://10.10.10.10:8080 其中 user 和 password 分别为你的用户名和密码。</p>
+<p>设置完成后，可以通过如下命令来查看设置是否生效：</p>
+<p>git config –get –global http.proxy 如果某一天你不喜欢她了，需要删除代理设置，那么可以使用：</p>
+<p>git config --system (或 --global 或 --local) --unset http.proxy 来删除设置。</p>
+<p>PS：有些同学可能使用的 Git 的客户端，比如界面很上流的 Github for Windows，里面可能并没有代理设置的选项，不过别着急，这些客户端一般在底层都是调用的命令行工具，所以同样按照上述步骤进行设置即可。</p>
+</body>
+</html>
