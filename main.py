@@ -1,38 +1,62 @@
+from pathlib import Path
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
+
 from pydantic import BaseModel, Field
 from typing import List
 from fastapi import FastAPI, File, UploadFile
+import os
+import random
+import string
+import requests
+
+
+def generate_random_string(length=10):
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+
 
 class File(BaseModel):
     name: str = Field(..., description="Name of the upload file")
     content: str = Field(..., description="Content of the upload file")
 
-class UploadFilesSchema(BaseModel):
-    files: List[File] = Field(..., description="Array of upload files object with name and content")
 
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+class UploadFilesSchema(BaseModel):
+    files: List[File] = Field(...,
+                              description="Array of upload files object with name and content")
+
 
 app = FastAPI()
 
-# Global variables to store HTML and CSS
-latest_html_code = "<p>No HTML code uploaded yet</p>"
-latest_css_code = ""
+# Dictionary to store random string and file path mapping
+path_mapping = {}
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 @app.post("/uploadCode")
 async def upload_files(files: UploadFilesSchema):
-    # Process the uploaded files here
-    # Example: Just returning the file names
-    file_names = [file.name for file in files.files]
-    return {"file_names": file_names}
+    random_string = generate_random_string()
+    save_directory = Path('static') / random_string
+    save_directory.mkdir(parents=True, exist_ok=True)
+    for file in files.files:
+        (save_directory / file.name).write_text(file.content)
+    # Store the mapping
+    path_mapping[random_string] = str(save_directory)
+    return {"message": f"Files uploaded successfully. Link: {random_string}"}
 
-@app.get("/")
-async def read_root():
-    combined_content = f"<style>{latest_css_code}</style>{latest_html_code}"
-    return HTMLResponse(content=combined_content)
+
+@app.get("/{random_string}")
+async def serve_index(random_string: str):
+    if random_string in path_mapping:
+        file_path = Path(path_mapping[random_string]) / 'index.html'
+        if file_path.is_file():
+            return FileResponse(str(file_path))
+        else:
+            raise HTTPException(status_code=404, detail="Index file not found")
+    else:
+        raise HTTPException(status_code=404, detail="Random string not found")
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
-
