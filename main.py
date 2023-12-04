@@ -31,7 +31,7 @@ app = FastAPI()
 # Dictionary to store random string and file path mapping
 path_mapping = {}
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.post("/uploadCode")
@@ -43,7 +43,7 @@ async def upload_files(files: UploadFilesSchema):
         (save_directory / file.name).write_text(file.content)
     # Store the mapping
     path_mapping[random_string] = str(save_directory)
-    return {"message": f"Files uploaded successfully. Link: {random_string}"}
+    return {"message": f"Files uploaded successfully. uniqueid: {random_string}"}
 
 
 @app.get("/{random_string}")
