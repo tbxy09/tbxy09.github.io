@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GitHub Trending Repositories</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 20px;
+  }
+  h1 {
+    color: #333;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+
+<h1>GitHub Trending Repositories</h1>
+<ul id="repo-list">
+  <!-- Repositories will be listed here -->
+</ul>
+
+<script>
+async function fetchTrendingRepos() {
+  const response = await fetch('https://api.github.com/search/repositories?q=stars:>1&sort=stars');
+  const data = await response.json();
+  const repos = data.items.slice(0, 10);
+  const list = repos.map(repo => `<li><strong>${repo.name}</strong> by ${repo.owner.login}<br><a href="${repo.html_url}">${repo.html_url}</a></li>`).join('');
+  document.getElementById('repo-list').innerHTML = list;
+}
+
+fetchTrendingRepos();
+</script>
+
+</body>
+</html>
