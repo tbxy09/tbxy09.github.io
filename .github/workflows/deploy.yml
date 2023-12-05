@@ -1,6 +1,7 @@
 name: Start Dev Environment
 
 on: [push]
+    branches: ["autodeploy"]
 
 jobs:
   build:
