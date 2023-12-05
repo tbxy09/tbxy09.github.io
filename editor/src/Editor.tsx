@@ -1,55 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Controlled as ControlledEditor } from 'react-codemirror2';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
+import React, { useEffect, useRef } from 'react';
+import { EditorState } from '@codemirror/state';
+import { EditorView, basicSetup } from '@codemirror/view';
+import { javascript } from '@codemirror/lang-javascript';
 
-interface EditorProps {
-  filePath: string;
-}
-
-const Editor: React.FC<EditorProps> = ({ filePath }) => {
-  const [content, setContent] = useState('');
-  const [cache, setCache] = useState<{ [key: string]: string }>({});
+const Editor = ({ content, onContentChange }) => {
+  const editorRef = useRef();
 
   useEffect(() => {
-    const fetchFileContent = async () => {
-      // Check if the content is in the cache
-      if (cache[filePath]) {
-        setContent(cache[filePath]);
-        return;
-      }
+    if (!editorRef.current) return;
 
-      try {
-        const response = await axios.get(`http://localhost:8000/repo/owner/repo/${filePath}`); // Replace with your API endpoint
-        const fetchedContent = atob(response.data.content); // Assuming the file content is base64 encoded
-        setContent(fetchedContent);
+    const startState = EditorState.create({
+      doc: content,
+      extensions: [basicSetup, javascript(), EditorView.updateListener.of(update => {
+        if (update.docChanged) {
+          onContentChange(update.state.doc.toString());
+        }
+      })]
+    });
 
-        // Update the cache with the new content
-        setCache(prev => ({ ...prev, [filePath]: fetchedContent }));
-      } catch (error) {
-        console.error('Error fetching file content:', error);
-      }
+    const view = new EditorView({
+      state: startState,
+      parent: editorRef.current
+    });
+
+    return () => {
+      view.destroy();
     };
+  }, [content, onContentChange]);
 
-    if (filePath) {
-      fetchFileContent();
-    }
-  }, [filePath, cache]);
-
-  return (
-    <ControlledEditor
-      value={content}
-      options={{
-        mode: 'javascript',
-        lineNumbers: true,
-        theme: 'material'
-      }}
-      onBeforeChange={(editor, data, value) => {
-        setContent(value);
-      }}
-    />
-  );
-}
+  return <div ref={editorRef} />;
+};
 
 export default Editor;

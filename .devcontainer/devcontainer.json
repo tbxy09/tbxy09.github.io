@@ -4,10 +4,10 @@
       "cpus": 4
     },
     "waitFor": "onCreateCommand",
-    "updateContentCommand": " pip install fastapi uvicorn && cd editor && npm install &&",
+    "updateContentCommand": " pip install fastapi uvicorn && cd editor && npm install",
     "postCreateCommand": "",
     "postAttachCommand": {
-      "server": "cd editor && npm start",
+      "server": "cd editor && npm run dev",
       "fastapi": "uvicorn main:app --reload"
     },
     "customizations": {
