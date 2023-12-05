@@ -1,0 +1,31 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "hostRequirements": {
+      "cpus": 4
+    },
+    "waitFor": "onCreateCommand",
+    "updateContentCommand": " pip install fastapi uvicorn && cd editor && npm install &&",
+    "postCreateCommand": "",
+    "postAttachCommand": {
+      "server": "cd editor && npm start",
+      "fastapi": "uvicorn main:app --reload"
+    },
+    "customizations": {
+      "codespaces": {
+        "openFiles": [
+          "editor/src/App.js"
+        ]
+      }
+    },
+    "portsAttributes": {
+      "3000": {
+        "label": "Application",
+        "onAutoForward": "openPreview"
+      },
+      "8000": {
+        "label": "FastAPI",
+        "onAutoForward": "notify"
+      }
+    },
+    "forwardPorts": [3000, 8000]
+  }
