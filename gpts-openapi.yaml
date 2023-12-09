@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: FileSystemEditorAPI
+  description: API for file operations in an editor environment, supporting multiple file upload, download, edit, and delete.
+  version: "1.0"
+servers:
+  - url: "https://curly-funicular-7vv6xr4ggqvfvgv-8000.app.github.dev"
+paths:
+  /uploadCode:
+    post:
+      summary: Upload front-end code files
+      operationId: uploadCode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UploadFilesSchema"
+      responses:
+        "200":
+          description: Upload successful
+  /queryFileStructure/{projectID}:
+    get:
+      summary: Retrieve the file structure
+      operationId: queryFileStructure
+      parameters:
+        - name: projectID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: File structure retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  treeprint:
+                    type: string
+  /downloadCode/{projectID}/{filelist}:
+    get:
+      summary: Download specific files
+      operationId: downloadFiles
+      parameters:
+        - name: projectID
+          in: path
+          "description": "ID of the project"
+          required: true
+          schema:
+            type: string
+        - name: filelist
+          in: path
+          "description": "Comma-separated list of file paths to download"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Download successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FileSchema"
+  /editFiles:
+    post:
+      summary: Edit multiple files
+      operationId: editFiles
+      parameters:
+        - name: projectID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FileEditSchema"
+      responses:
+        "200":
+          description: Files edited successfully
+components:
+  schemas:
+    FileSchema:
+      type: object
+      properties:
+        path:
+          type: string
+          description: path of the file
+        content:
+          type: string
+          description: Content of the file
+    EditSchema:
+      type: object
+      properties:
+        path:
+          type: string
+          description: path of the file
+        new_content:
+          type: string
+          description: Content of the file
+    UploadFilesSchema:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/FileSchema"
+    FileEditSchema:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/EditSchema"
