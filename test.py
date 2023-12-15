@@ -47,10 +47,10 @@ def test_listfiles():
     # Add more assertions based on the expected response
 
 def test_readfiles():
-    filename = "test_file1.txt, test_file2.txt"
+    filename = "test1/test_file1.txt, test2/test_file2.txt"
     response = client.get(f"/readfiles/{projectID}",params={"filelist": filename})
     assert response.status_code == 200
-    assert response.json() == [{"path": "project/b2z4yv7Vy4/test_file1.txt", "content": "Test content 1"}]
+    assert response.json() == [{"path": "project/b2z4yv7Vy4/test1/test_file1.txt", "content": "Test content 1"}, {"path": "project/b2z4yv7Vy4/test2/test_file2.txt", "content": "Test content 2"}]
     # Add more assertions based on the expected response
 
 def test_edit_files():
@@ -62,7 +62,7 @@ def test_edit_files():
         ]
     })
     assert response.status_code == 200
-    assert response.json() == {"message": "Files edited successfully: test_file1.txt,test_file2.txt"}
+    assert response.json() == {"message": "Files edited successfully: test1/test_file1.txt,test2/test_file2.txt"}
     assert Path(f"project/{projectID}/test1/test_file1.txt").read_text() == "Test content 1"
     assert Path(f"project/{projectID}/test2/test_file2.txt").read_text() == "Test content 2"
 

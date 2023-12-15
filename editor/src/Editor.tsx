@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, Dispatch, SetStateAction } from 'react';
+import { useCodeMirror } from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
 import axios from 'axios';
-import { Controlled as ControlledEditor } from 'react-codemirror2';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
+import Preview from './Preview';
 
+// interface EditorProps {
+//   filePath: string;
+// }
 interface EditorProps {
   filePath: string;
+  setCode: Dispatch<SetStateAction<string>>;
 }
-
 const Editor: React.FC<EditorProps> = ({ filePath }) => {
   const [content, setContent] = useState('');
   const [cache, setCache] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     const fetchFileContent = async () => {
-      // Check if the content is in the cache
       if (cache[filePath]) {
         setContent(cache[filePath]);
         return;
       }
 
       try {
-        const response = await axios.get(`http://localhost:8000/repo/owner/repo/${filePath}`); // Replace with your API endpoint
-        const fetchedContent = atob(response.data.content); // Assuming the file content is base64 encoded
+        const response = await axios.get(`http://localhost:8000/repo/owner/repo/${filePath}`);
+        const fetchedContent = atob(response.data.content);
         setContent(fetchedContent);
-
-        // Update the cache with the new content
         setCache(prev => ({ ...prev, [filePath]: fetchedContent }));
       } catch (error) {
         console.error('Error fetching file content:', error);
@@ -37,18 +37,22 @@ const Editor: React.FC<EditorProps> = ({ filePath }) => {
     }
   }, [filePath, cache]);
 
+  const { state, setState, container, setContainer } = useCodeMirror({
+    value: content,
+    extensions: [javascript()],
+    onChange: (value) => {
+      setContent(value);
+    }
+  });
+  const ref = (instance: HTMLDivElement | null) => {
+    setContainer(instance || undefined);
+  };
+
   return (
-    <ControlledEditor
-      value={content}
-      options={{
-        mode: 'javascript',
-        lineNumbers: true,
-        theme: 'material'
-      }}
-      onBeforeChange={(editor, data, value) => {
-        setContent(value);
-      }}
-    />
+    <div className='editor-container'>
+      <div ref={ref} />
+      <Preview code={content} />
+    </div>
   );
 }
 

@@ -4,9 +4,8 @@ Created on: 2023/11/10 11:00
 Author: tbxy09
 File: main.py
 """
-
 import requests
-from fastapi import FastAPI, HTTPException, Query
+import os
 import string
 import random
 import shutil
@@ -16,9 +15,17 @@ from urllib.parse import unquote
 from pydantic import BaseModel, Field
 from typing import List
 
+from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException, Response
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import shutil
+import tempfile
+import uuid
 
 
 def generate_random_string(length=10):
@@ -48,6 +55,15 @@ class ArrayFileSchema(BaseModel):
 
 app = FastAPI()
 
+# CORS middleware configuration
+default_origins = ['https://curly-funicular-7vv6xr4ggqvfvgv-5173.app.github.dev']  # Adjust according to the frontend host
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=default_origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
 # Dictionary to store project information
 # {
 #     "random_string": {
@@ -98,17 +114,15 @@ async def readfiles(projectID: str, filelist: str):
     for file in files:
         root = Path("project") / projectID
         if root.is_dir():
-            file_path = root / unquote(file)
+            file_path = root / unquote(file.strip())
             if not file_path.is_file():
                 continue
             content = file_path.read_text()
-            print(file_path)
             result.append(FileSchema(content=content,
                                      path=str(file_path)))
         else:
             raise HTTPException(
                 status_code=404, detail=f"File {file} not found")
-
     return result
 
 
@@ -236,7 +250,34 @@ async def privacy_policy():
     """
     return Response(content=html_content, media_type="text/html")
 
+@app.post('/screenshot')
+def take_screenshot(url: str):
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.headless = True
+    driver = webdriver.Chrome(options=options)
+    driver.get(url)
+    # Generate a unique file name
+    temp_dir = tempfile.mkdtemp()
+    file_name = str(uuid.uuid4()) + '.png'
+    screenshot_path = f'{temp_dir}/{file_name}'
 
+    driver.save_screenshot(screenshot_path)
+    driver.quit()
+
+    try:
+      # Assuming the server has a static directory accessible at /static
+        static_dir = 'project/static'
+        static_path = os.path.join(static_dir, file_name)
+        shutil.move(screenshot_path, static_path)
+        screenshot_url = f'https://curly-funicular-7vv6xr4ggqvfvgv-8000.app.github.dev/{file_name}'
+        return JSONResponse(content={'url': screenshot_url})
+    except Exception as e:
+        shutil.rmtree(temp_dir)  # Clean up the temporary directory
+        raise HTTPException(status_code=500, detail=str(e))
+    
 @app.get("/repo/{owner}/{repo}/{path:path}")
 async def read_repo(owner: str, repo: str, path: str = ''):
     github_api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}"
