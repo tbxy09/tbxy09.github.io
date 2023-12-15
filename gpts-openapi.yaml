@@ -4,25 +4,25 @@ info:
   description: API for file operations in an editor environment, supporting multiple file upload, download, edit, and delete.
   version: "1.0"
 servers:
-  - url: "https://curly-funicular-7vv6xr4ggqvfvgv-8000.app.github.dev"
+  - url: https://curly-funicular-7vv6xr4ggqvfvgv-8000.app.github.dev
 paths:
-  /uploadCode:
+  /newworkspace:
     post:
-      summary: Upload front-end code files
-      operationId: uploadCode
+      summary: scaffold a new workspace
+      operationId: newworkspace
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UploadFilesSchema"
+              $ref: "#/components/schemas/ArrayFileSchema"
       responses:
         "200":
           description: Upload successful
-  /queryFileStructure/{projectID}:
+  /listfiles/{projectID}:
     get:
-      summary: Retrieve the file structure
-      operationId: queryFileStructure
+      summary: Retrieve the file structure of workspace
+      operationId: listfiles
       parameters:
         - name: projectID
           in: path
@@ -39,20 +39,20 @@ paths:
                 properties:
                   treeprint:
                     type: string
-  /downloadCode/{projectID}/{filelist}:
+  /readfiles/{projectID}:
     get:
-      summary: Download specific files
-      operationId: downloadFiles
+      summary: read specific files
+      operationId: readfiles
       parameters:
         - name: projectID
           in: path
-          "description": "ID of the project"
+          description: ID of the project
           required: true
           schema:
             type: string
         - name: filelist
-          in: path
-          "description": "Comma-separated list of file paths to download"
+          in: query
+          description: Comma-separated list of file paths to download
           required: true
           schema:
             type: string
@@ -65,7 +65,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/FileSchema"
-  /editFiles:
+  /editFiles/{projectID}:
     post:
       summary: Edit multiple files
       operationId: editFiles
@@ -80,7 +80,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/FileEditSchema"
+              $ref: "#/components/schemas/ArrayEditSchema"
       responses:
         "200":
           description: Files edited successfully
@@ -103,15 +103,15 @@ components:
           description: path of the file
         new_content:
           type: string
-          description: Content of the file
-    UploadFilesSchema:
+          description: new Content of the file
+    ArrayFileSchema:
       type: object
       properties:
         files:
           type: array
           items:
             $ref: "#/components/schemas/FileSchema"
-    FileEditSchema:
+    ArrayEditSchema:
       type: object
       properties:
         files:
