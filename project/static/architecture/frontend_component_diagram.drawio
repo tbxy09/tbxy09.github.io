@@ -1,0 +1,23 @@
+<mxfile><diagram id="1" name="Page-1">
+<mxGraphModel dx="1422" dy="797" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <!-- App Component -->
+    <mxCell id="appComponent" value="App.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;" vertex="1" parent="1">
+      <mxGeometry x="100" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Editor Component -->
+    <mxCell id="editorComponent" value="Editor.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;" vertex="1" parent="1">
+      <mxGeometry x="250" y="150" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <!-- FileExplorer Component -->
+    <mxCell id="fileExplorerComponent" value="FileExplorer.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;" vertex="1" parent="1">
+      <mxGeometry x="400" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Preview Component -->
+    <mxCell id="previewComponent" value="Preview.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;" vertex="1" parent="1">
+      <mxGeometry x="550" y="150" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Interaction Links -->
+    <!-- Additional Notes -->
+  </root>
+</mxGraphModel></diagram></mxfile>

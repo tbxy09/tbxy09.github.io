@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+.nav-header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    cursor: pointer;
+}

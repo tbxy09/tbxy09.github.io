@@ -1,0 +1,31 @@
+<mxfile><diagram id="3" name="Page-1">
+<mxGraphModel dx="1422" dy="797" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <!-- Client -->
+    <mxCell id="client" value="Client (User)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;" vertex="1" parent="1">
+      <mxGeometry x="100" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Flask App -->
+    <mxCell id="flaskApp" value="Flask App" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;" vertex="1" parent="1">
+      <mxGeometry x="300" y="50" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Selenium WebDriver -->
+    <mxCell id="selenium" value="Selenium WebDriver" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;" vertex="1" parent="1">
+      <mxGeometry x="500" y="50" width="180" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Screenshot Image -->
+    <mxCell id="screenshot" value="Screenshot Image" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;" vertex="1" parent="1">
+      <mxGeometry x="700" y="50" width="140" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Interaction Flow -->
+    <mxCell id="flow1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;exitX=0.5;exitY=0;" edge="1" parent="1" source="client" target="flaskApp">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="flow2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;exitX=0.5;exitY=0;" edge="1" parent="1" source="flaskApp" target="selenium">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="flow3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;exitX=0.5;exitY=0;" edge="1" parent="1" source="selenium" target="screenshot">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+  </root>
+</mxGraphModel></diagram></mxfile>

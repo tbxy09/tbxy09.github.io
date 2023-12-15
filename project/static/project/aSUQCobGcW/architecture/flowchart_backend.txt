@@ -1,0 +1,10 @@
+Flowchart for Backend Function take_screenshot:
+1. Start
+2. Receive URL from POST request.
+3. Initialize Selenium WebDriver in headless mode.
+4. Navigate WebDriver to URL.
+5. Wait for 2 seconds to allow page load.
+6. Take screenshot and save as 'screenshot.png'.
+7. Close WebDriver.
+8. Return screenshot image.
+9. End

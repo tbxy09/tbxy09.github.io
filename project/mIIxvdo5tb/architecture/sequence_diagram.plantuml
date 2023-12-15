@@ -1,0 +1,29 @@
+@startuml
+actor User
+participant FileExplorer as FE
+participant App
+participant Editor
+participant Preview
+participant Backend
+
+User -> FE : Select File
+activate FE
+FE -> App : Update Selected File
+activate App
+App -> Editor : Fetch File Content
+activate Editor
+Editor -> Backend : Request File Content
+activate Backend
+Backend --> Editor : Return File Content
+deactivate Backend
+Editor --> App : Update Code State
+deactivate Editor
+App -> Preview : Render Preview
+activate Preview
+Preview --> App : Display Rendered Code
+deactivate Preview
+User -> App : Click 'Copy as Image'
+App -> Preview : Capture Screenshot
+Preview -> App : Return Screenshot
+App -> User : Download Screenshot
+@enduml

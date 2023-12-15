@@ -1,0 +1,10 @@
+Sequence Diagram for /screenshot Endpoint:
+1. Client sends a POST request to /screenshot with a URL.
+2. Flask route '/screenshot' receives the request.
+3. The take_screenshot function is invoked.
+   - Selenium WebDriver is initialized in headless mode.
+   - WebDriver navigates to the provided URL.
+   - The page is allowed to load for 2 seconds.
+   - A screenshot is taken and saved as 'screenshot.png'.
+   - WebDriver is closed.
+4. The screenshot image is returned to the client as a response.

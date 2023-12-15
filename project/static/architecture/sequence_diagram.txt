@@ -1,0 +1,3 @@
+Sequence Diagram for the main feature:
+- Illustrate the interaction between the frontend editor and the backend.
+- Show the flow of data from the user's input in the editor to processing in the backend and back to the frontend.

@@ -1,0 +1,3 @@
+Entity-Relationship Diagram (ERD) for the main feature:
+- Depict the data entities involved in the main feature.
+- Show relationships between these entities, including any database interactions.

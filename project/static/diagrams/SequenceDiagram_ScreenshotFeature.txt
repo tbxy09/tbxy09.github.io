@@ -1,0 +1,6 @@
+Sequence Diagram for Screenshot Feature:
+1. User sends POST request to /screenshot with URL.
+2. Flask web service receives request.
+3. Flask service invokes Selenium WebDriver.
+4. WebDriver navigates to URL, waits, and takes screenshot, saving it as 'screenshot.png'.
+5. Flask service sends screenshot file back to user.

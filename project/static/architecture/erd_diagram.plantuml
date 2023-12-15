@@ -1,0 +1,23 @@
+@startuml
+entity "App" as App {
+  + selectedFile : string | null
+  + code : string
+  + screenshotURL : string
+}
+
+entity "Editor" as Editor {
+  + content : string
+  + cache : object
+}
+
+entity "FileExplorer" as FileExplorer {
+  + files : string[]
+}
+
+entity "Preview" as Preview {}
+
+App --> Editor : "fetches & updates code"
+App --> FileExplorer : "updates selected file"
+App --> Preview : "renders code for preview"
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+entity "File" {
+  + id
+  --
+  + name
+  + content
+}
+
+entity "Editor" {
+  --
+  + content
+}
+
+File --> Editor: Edits
+@enduml

@@ -6,12 +6,11 @@ File: main.py
 """
 
 import requests
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException
 import string
 import random
 import shutil
 from pathlib import Path
-from urllib.parse import unquote
 
 from pydantic import BaseModel, Field
 from typing import List
@@ -36,14 +35,15 @@ class FileEdit(BaseModel):
     new_content: str = Field(..., description="New content of the file")
 
 
-class ArrayEditSchema(BaseModel):
+# FileEditSchema = List[FileEdit]
+class FileEditSchema(BaseModel):
     files: List[FileEdit] = Field(
-        ..., description="Array of edited files object with relative path and new_content")
+        ..., description="Array of edited files object with path and new_content")
 
 
-class ArrayFileSchema(BaseModel):
+class UploadFilesSchema(BaseModel):
     files: List[FileSchema] = Field(
-        ..., description="Array of upload files object with relative path and content")
+        ..., description="Array of upload files object with path and content")
 
 
 app = FastAPI()
@@ -58,13 +58,10 @@ app = FastAPI()
 path_mapping = {"cbx2ovkQmU": {
     "path": "static/aMpW3xAJuI", "state": "developing"}}
 
-static_directory = Path('project') / "static"
-static_directory.mkdir(parents=True, exist_ok=True)
-
 # add a query file structure endpoint
 def print_tree(directory, file_path_indent="", sub_dirs_indent=""):
-    result = f"{file_path_indent}{Path(directory).name}\n"
-    # result = ""
+    # result = f"{file_path_indent}{Path(directory).name}\n"
+    result = ""
 
     for path in sorted(directory.iterdir()):
         if path.is_file():
@@ -76,9 +73,9 @@ def print_tree(directory, file_path_indent="", sub_dirs_indent=""):
     return result
 
 
-@app.get("/listfiles/{projectID}")
-async def query_file_structure(projectID: str):
-    root = Path("project") / projectID
+@app.get("/queryFileStructure/{random_string}")
+async def query_file_structure(random_string: str):
+    root = Path("project") / random_string
     if root.is_dir():
         return {"treeprint": print_tree(root)}
     else:
@@ -89,20 +86,19 @@ async def get_openapi_yaml():
     return FileResponse("gpts-openapi.yaml")
 
 
-@app.get("/readfiles/{projectID}", response_model=List[FileSchema], responses={404: {"description": "One or more files not found"}})
-async def readfiles(projectID: str, filelist: str):
-    print(filelist)
-    files = unquote(filelist).split(',')
+@app.get("/downloadCode/{projectID}/{filelist}", response_model=List[FileSchema], responses={404: {"description": "One or more files not found"}})
+async def downloadCode(projectID: str, filelist: str):
+    files = filelist.split(',')
     result = []
 
     for file in files:
         root = Path("project") / projectID
         if root.is_dir():
-            file_path = root / unquote(file)
+            file_path = root / file
+            print(file_path)
             if not file_path.is_file():
                 continue
             content = file_path.read_text()
-            print(file_path)
             result.append(FileSchema(content=content,
                                      path=str(file_path)))
         else:
@@ -112,20 +108,17 @@ async def readfiles(projectID: str, filelist: str):
     return result
 
 
-@app.post("/newworkspace", responses={404: {"description": "new failed"}})
-async def upload_files(files: ArrayFileSchema):
+@app.post("/uploadCode", responses={404: {"description": "upload failed"}})
+async def upload_files(files: UploadFilesSchema):
     random_string = generate_random_string()
     save_directory = Path('project') / random_string
     save_directory.mkdir(parents=True, exist_ok=True)
 
     for file in files.files:
         file_path = save_directory / file.path
-        file_path_static = static_directory / file.path
         # Ensure the directory exists
         file_path.parent.mkdir(parents=True, exist_ok=True)
         file_path.write_text(file.content)
-        file_path_static.parent.mkdir(parents=True, exist_ok=True)
-        file_path_static.write_text(file.content)
 
     # Store the mapping
     path_mapping[random_string] = {
@@ -134,45 +127,47 @@ async def upload_files(files: ArrayFileSchema):
     }
     return {
         "message":
-        f"Files uploaded successfully. uniqueid: {random_string}. please form your url with end_point with projectID query c?projectID={random_string}"
+        f"Files uploaded successfully. uniqueid: {random_string}. please form your url with end_point c/{random_string}"
     }
 
 
 @app.post("/editFiles/{projectID}", responses={404: {"description": "One or more files not found"}})
-async def edit_files(projectID: str, file_edits: ArrayEditSchema):
+async def edit_files(projectID: str, file_edits: FileEditSchema):
     root = Path("project") / projectID
-    root_static = Path("project") / "static"
     if not root.is_dir():
         raise HTTPException(status_code=404, detail="Project not found")
     for file_edit in file_edits.files:
         file_path = root / file_edit.path
-        file_path_static = root_static / file_edit.path
         if not file_path.is_file():
+            # create the file
             file_path.parent.mkdir(parents=True, exist_ok=True)
-            file_path_static.parent.mkdir(parents=True, exist_ok=True)
-        print(file_path)
-        print(file_path_static)
         file_path.write_text(file_edit.new_content)
-        file_path_static.write_text(file_edit.new_content)
     # and return all the files edited
     return {"message": "Files edited successfully: " + ",".join([file_edit.path for file_edit in file_edits.files])}
 
-# curl "http://localhost:8000/c?project_id=your_project_id"
-@app.get("/c")
-async def serve_project(projectID: str = Query(None)):
-    print(projectID)
-    file_path = Path("project")/projectID/"index.html"
-    print(file_path)
+@app.get("/c/{random_string}")
+async def serve_root(random_string: str):
+    print(random_string)
+    file_path = Path("project") / random_string / "index.html"
     if file_path.is_file():
-        return FileResponse(file_path)
+        return FileResponse(str(file_path))
     else:
-        raise HTTPException(status_code=404) 
+        raise HTTPException(status_code=404, detail="Index file not found")
 
+app.mount("/c", StaticFiles(directory="project"), name="static")
 
+# @app.get("/c/{random_string}/{filename:path}")
+# async def serve_file(random_string: str, filename: str):
+#     file_path = Path("project") / random_string / filename
+#     if file_path.is_file():
+#         return FileResponse(str(file_path))
+#     else:
+#         raise HTTPException(status_code=404, detail="File not found")
+    
+# Mount a static files directory
 
 @app.get("/privacy", response_class=HTMLResponse)
 async def privacy_policy():
-    print("privacy policy")
     html_content = """
 <!DOCTYPE html>
 <html lang="en">
@@ -247,8 +242,6 @@ async def read_repo(owner: str, repo: str, path: str = ''):
     else:
         raise HTTPException(status_code=response.status_code,
                             detail="Error fetching data from GitHub")
-# Mount a static files 
-app.mount("/", StaticFiles(directory="project/static"), name="static")
 
 if __name__ == "__main__":
     import uvicorn

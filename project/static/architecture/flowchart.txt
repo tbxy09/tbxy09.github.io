@@ -1,0 +1,4 @@
+Flowchart for the main feature:
+- Map out the high-level process flow of the main feature.
+- Include both frontend and backend processes.
+- Indicate decision points, data inputs, and outputs.

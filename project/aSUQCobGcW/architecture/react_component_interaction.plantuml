@@ -1,0 +1,19 @@
+@startuml
+actor User
+participant "App.tsx" as App
+participant "FileExplorer.tsx" as FileExplorer
+participant "Editor.tsx" as Editor
+participant "Preview.tsx" as Preview
+database Backend
+
+User -> App: Opens Application
+App -> FileExplorer: Render
+FileExplorer -> Backend: Fetch Files
+Backend -> FileExplorer: Return File List
+FileExplorer -> App: onSelectFile
+App -> Editor: Render with File Path
+Editor -> Backend: Fetch File Content
+Backend -> Editor: Return Content
+Editor -> App: Update Code
+App -> Preview: Render with Code
+@enduml

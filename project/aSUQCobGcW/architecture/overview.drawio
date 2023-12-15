@@ -1,0 +1,19 @@
+<mxfile><diagram id="0" name="Page-1">
+<mxGraphModel dx="1422" dy="797" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <!-- Frontend Overview -->
+    <mxCell id="frontend" value="Frontend (React/Vite)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;" vertex="1" parent="1">
+      <mxGeometry x="50" y="50" width="180" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Backend Overview -->
+    <mxCell id="backend" value="Backend (Python)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;" vertex="1" parent="1">
+      <mxGeometry x="50" y="150" width="180" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Interaction Flow -->
+    <mxCell id="interaction" value="Interaction Flow" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;exitX=0.5;exitY=0;" edge="1" parent="1" source="frontend" target="backend">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <!-- Asset Management -->
+    <!-- Configuration and Setup -->
+  </root>
+</mxGraphModel></diagram></mxfile>
