@@ -257,18 +257,30 @@ def take_screenshot(url: str):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.headless = True
+    options.add_argument('--disable-gpu')  # Required for headless mode
+    options.add_argument('--hide-scrollbars')
+    options.add_argument('--enable-logging')
+    options.add_argument('--window-size=1920,1080') # Start with a standard hd size
+    options.add_argument('--start-maximized')  # Maximize to get the largest viewport before capture
     driver = webdriver.Chrome(options=options)
     driver.get(url)
+
+    # Calculate the actual height of the page
+    total_height = driver.execute_script('return document.body.parentNode.scrollHeight')
+    # Resize window to capture the entire page
+    driver.set_window_size(1920, total_height)
+
     # Generate a unique file name
     temp_dir = tempfile.mkdtemp()
     file_name = str(uuid.uuid4()) + '.png'
-    screenshot_path = f'{temp_dir}/{file_name}'
+    screenshot_path = os.path.join(temp_dir, file_name)
 
+    # Take the screenshot of the entire page
     driver.save_screenshot(screenshot_path)
     driver.quit()
 
     try:
-      # Assuming the server has a static directory accessible at /static
+        # Assuming the server has a static directory accessible at /static
         static_dir = 'project/static'
         static_path = os.path.join(static_dir, file_name)
         shutil.move(screenshot_path, static_path)
@@ -277,7 +289,7 @@ def take_screenshot(url: str):
     except Exception as e:
         shutil.rmtree(temp_dir)  # Clean up the temporary directory
         raise HTTPException(status_code=500, detail=str(e))
-    
+
 @app.get("/repo/{owner}/{repo}/{path:path}")
 async def read_repo(owner: str, repo: str, path: str = ''):
     github_api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}"
