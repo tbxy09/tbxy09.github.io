@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, Dispatch, SetStateAction } from 'react';
+import { useCodeMirror } from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
 import axios from 'axios';
-import { Controlled as ControlledEditor } from 'react-codemirror2';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
 import Preview from './Preview';
 
+// interface EditorProps {
+//   filePath: string;
+// }
 interface EditorProps {
   filePath: string;
+  setCode: Dispatch<SetStateAction<string>>;
 }
-
 const Editor: React.FC<EditorProps> = ({ filePath }) => {
   const [content, setContent] = useState('');
   const [cache, setCache] = useState<{ [key: string]: string }>({});
@@ -35,19 +37,20 @@ const Editor: React.FC<EditorProps> = ({ filePath }) => {
     }
   }, [filePath, cache]);
 
+  const { state, setState, container, setContainer } = useCodeMirror({
+    value: content,
+    extensions: [javascript()],
+    onChange: (value) => {
+      setContent(value);
+    }
+  });
+  const ref = (instance: HTMLDivElement | null) => {
+    setContainer(instance || undefined);
+  };
+
   return (
     <div className='editor-container'>
-      <ControlledEditor
-        value={content}
-        options={{
-          mode: 'javascript',
-          lineNumbers: true,
-          theme: 'material'
-        }}
-        onBeforeChange={(editor, data, value) => {
-          setContent(value);
-        }}
-      />
+      <div ref={ref} />
       <Preview code={content} />
     </div>
   );

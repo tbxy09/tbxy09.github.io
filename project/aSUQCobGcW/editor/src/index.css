@@ -12,7 +12,20 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.capture-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Adjust as needed */
+  height: auto; /* Adjust as needed */
+  background-color: white; /* Added for contrast */
+}
 
+.dynamic-html-content, .screenshot-image {
+  flex: 1; /* Adjust as needed for sizing */
+  max-width: 50%; /* Adjust as needed for sizing */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional, for better visibility */
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -52,6 +65,12 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.editor-preview-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
 }
 
 @media (prefers-color-scheme: light) {
