@@ -17,7 +17,7 @@ function App() {
     // Fetch the screenshot URL using a POST request
     const fetchScreenshot = async () => {
       try {
-        const response = await axios.post('https://curly-funicular-7vv6xr4ggqvfvgv-8000.app.github.dev/screenshot', null, { params: { url: 'https://www.webwalkerapp.com/' } });
+        const response = await axios.post('https://curly-funicular-7vv6xr4ggqvfvgv-8000.app.github.dev/screenshot', null, { params: { url: 'https://aihomedesign.com/' } });
         setScreenshotURL(response.data.url);
       } catch (error) {
         console.error('Error fetching screenshot:', error);
