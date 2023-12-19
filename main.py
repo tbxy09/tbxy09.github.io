@@ -24,7 +24,7 @@ from file_management import (
     print_tree, 
     generate_random_string
 )
-from screenshot_service import capture_screenshot
+from screenshot_service import capture_screenshot_with_screenshotone
 from const import ROOT_URL_F, ROOT_URL_B
 
 app = FastAPI()
@@ -136,7 +136,7 @@ async def serve_project(projectID: str = Query(None)):
 
 @app.post('/screenshot')
 def take_screenshot(url: str):
-    screenshot_path = capture_screenshot(url)
+    screenshot_path = capture_screenshot_with_screenshotone(url)
     screenshot_url = move_to_static(screenshot_path)
     return JSONResponse(content={'url': screenshot_url})
 
@@ -144,10 +144,10 @@ def take_screenshot(url: str):
 def take_side_by_side_screenshot(project_id: str, url: str):
     # Capture screenshot of the code preview from the project URL
     code_url = f'{ROOT_URL_B}/c?projectID={project_id}'
-    code_screenshot_path = capture_screenshot(code_url)
+    code_screenshot_path = capture_screenshot_with_screenshotone(code_url)
 
     # Capture screenshot of the target URL
-    target_screenshot_path = capture_screenshot(url)
+    target_screenshot_path = capture_screenshot_with_screenshotone(url)
 
     # Combine both screenshots side by side
     from PIL import Image

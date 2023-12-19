@@ -1,6 +1,33 @@
+import httpx
+import asyncio
+import os
+import tempfile
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import tempfile
+
+# Asynchronous Screenshot Capture with ScreenshotOne API
+async def capture_screenshot_with_screenshotone(url: str) -> str:
+    async with httpx.AsyncClient() as client:
+        params = {
+            "access_key": os.getenv('SCREENSHOT_API_KEY'),
+            'url': url,
+            'format': 'png',
+            'viewport_width': 1024,
+            'viewport_height': 768,
+        }
+
+        api_endpoint = 'https://api.screenshotone.com/take'
+
+        response = await client.get(api_endpoint, params=params)
+
+        if response.status_code == 200:
+            screenshot_path = tempfile.NamedTemporaryFile(suffix='.png', delete=False).name
+            with open(screenshot_path, 'wb') as result_file:
+                result_file.write(response.content)
+
+            return screenshot_path
+        else:
+            raise Exception(f'Failed to capture screenshot: {response.status_code}')
 
 # Function to set up the headless Chrome driver
 def setup_driver():
