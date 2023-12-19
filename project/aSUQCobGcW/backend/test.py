@@ -6,6 +6,14 @@ from pydantic import BaseModel
 from typing import List
 import os
 
+# Define the ArrayEditSchema and FileEditSchema for testing
+class FileEditSchema(BaseModel):
+    path: str
+    new_content: str
+
+class ArrayEditSchema(BaseModel):
+    files: List[FileEditSchema]
+
 # rm test_project if it exists
 # if Path("project/test_project").exists():
     # shutil.rmtree("project/test_project")

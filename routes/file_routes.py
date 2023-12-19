@@ -1,3 +1,4 @@
+import difflib
 from fastapi import APIRouter, HTTPException
 from pathlib import Path
 from urllib.parse import unquote
@@ -41,8 +42,6 @@ async def upload_files(files: ArrayFileSchema):
     return {"message": f"Files uploaded successfully. uniqueid: {random_string}. please form your url with end_point with projectID query c?projectID={random_string}"
 }
 
-import subprocess
-
 @router.post("/editFiles/{projectID}")
 async def edit_files(projectID: str, file_edits: ArrayEditSchema):
     root = Path("project") / projectID
@@ -56,8 +55,16 @@ async def edit_files(projectID: str, file_edits: ArrayEditSchema):
         file_path.write_text(file_edit.new_content)
         copy_to_static(file_path)
         # Run git diff and capture the output
-        diff = subprocess.run(['git', 'diff', '--', str(file_path)], capture_output=True, text=True, cwd=root)
-        # If there are changes, add them to the response
-        if diff.stdout:
-            file_edit.diff = diff.stdout
+
+        # Assume old_content is the content read from the file
+        # and new_content is the content you want to write to the file
+        old_content_lines = old_content.splitlines()
+        new_content_lines = file_edit.new_content.splitlines()
+
+        diff = difflib.unified_diff(old_content_lines, new_content_lines)
+
+        # The diff is a generator, so we need to join it into a string
+        diff_str = '\n'.join(diff)
+        if diff_str:
+            file_edit.diff = diff_str
     return {"message": "Files edited successfully: " + ",".join([f"{file_edit.path}:\n{file_edit.diff}" for file_edit in file_edits.files])}

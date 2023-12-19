@@ -1,9 +1,11 @@
 import os
+from pathlib import Path
 import random
 import shutil
 import string
 from typing import List
 from pydantic import BaseModel, Field
+from const import ROOT_URL_B
 
 class FileSchema(BaseModel):
     path: str = Field(..., description="path of the file")
@@ -31,13 +33,13 @@ def move_to_static(screenshot_path, static_dir='static'):
     file_name = os.path.basename(screenshot_path)
     static_path = os.path.join(static_dir, file_name)
     shutil.move(screenshot_path, static_path)
-    return f'http://localhost:8000/{static_dir}/{file_name}'
+    return f'{ROOT_URL_B}/{file_name}'
 
 def copy_to_static(screenshot_path, static_dir='static'):
     file_name = os.path.basename(screenshot_path)
     static_path = os.path.join(static_dir, file_name)
     shutil.copy(screenshot_path, static_path)
-    return f'http://localhost:8000/{static_dir}/{file_name}'
+    return f'{ROOT_URL_B}/{file_name}'
 
 # add a query file structure endpoint
 def print_tree(directory, file_path_indent="", sub_dirs_indent=""):

@@ -16,7 +16,6 @@ class FileEdit(BaseModel):
     path: str = Field(...,
                       description="path of the file to be edited")
     new_content: str = Field(..., description="New content of the file")
-    diff: str = Field(None, description="Diff of the file")
 
 
 class ArrayEditSchema(BaseModel):
@@ -40,7 +39,7 @@ def copy_to_static(screenshot_path, static_dir='static'):
     file_name = os.path.basename(screenshot_path)
     static_path = os.path.join(static_dir, file_name)
     shutil.copy(screenshot_path, static_path)
-    return f'{ROOT_URL_B}/{file_name}'
+    return f'{ROOT_URL_B}/{static_dir}/{file_name}'
 
 # add a query file structure endpoint
 def print_tree(directory, file_path_indent="", sub_dirs_indent=""):

@@ -2,51 +2,30 @@ import httpx
 import asyncio
 import os
 import tempfile
-from hashlib import md5
-from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-# Cache directory
-cache_dir = Path("screenshot_cache")
-cache_dir.mkdir(parents=True, exist_ok=True)
-
-# Function to normalize URL (remove trailing slash)
-def normalize_url(url: str) -> str:
-    return url.rstrip('/')
-
-# Function to generate a cache key based on URL
-def generate_cache_key(url: str) -> str:
-    normalized_url = normalize_url(url)
-    return md5(normalized_url.encode()).hexdigest()
-
 # Asynchronous Screenshot Capture with ScreenshotOne API
 async def capture_screenshot_with_screenshotone(url: str) -> str:
-    cache_key = generate_cache_key(url)
-    cached_path = cache_dir / f"{cache_key}.png"
-
-    # Check if cached screenshot exists
-    if cached_path.is_file():
-        return str(cached_path)
-
-    async with httpx.AsyncClient(timeout=60) as client:
+    async with httpx.AsyncClient() as client:
         params = {
             "access_key": os.getenv('SCREENSHOT_API_KEY'),
             'url': url,
+            'format': 'png',
             'viewport_width': 1024,
             'viewport_height': 768,
-            'format': 'png',
-            "full_page": "true",
-            "device_scale_factor": "1"
         }
 
         api_endpoint = 'https://api.screenshotone.com/take'
+
         response = await client.get(api_endpoint, params=params)
 
         if response.status_code == 200:
-            with open(cached_path, 'wb') as result_file:
+            screenshot_path = tempfile.NamedTemporaryFile(suffix='.png', delete=False).name
+            with open(screenshot_path, 'wb') as result_file:
                 result_file.write(response.content)
-            return str(cached_path)
+
+            return screenshot_path
         else:
             raise Exception(f'Failed to capture screenshot: {response.status_code}')
 
