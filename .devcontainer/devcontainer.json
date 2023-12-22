@@ -8,7 +8,7 @@
     "postCreateCommand": "",
     "postAttachCommand": {
       "server": "cd editor && npm start",
-      "fastapi": "uvicorn main:app --reload"
+      "fastapi": "SCREENSHOT_API_KEY=3KNdlC_5ZjINDw uvicorn main:app --reload"
     },
     "customizations": {
       "codespaces": {

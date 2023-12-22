@@ -84,7 +84,42 @@ paths:
       responses:
         "200":
           description: Files edited successfully
- # Updated endpoints with query parameters instead of request body
+components:
+  schemas:
+    FileSchema:
+      type: object
+      properties:
+        path:
+          type: string
+          description: relative path of the file
+        content:
+          type: string
+          description: Content of the file
+    EditSchema:
+      type: object
+      properties:
+        path:
+          type: string
+          description: relative path of the file
+        new_content:
+          type: string
+          description: new Content of the file
+    ArrayFileSchema:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/FileSchema"
+    ArrayEditSchema:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/EditSchema"
+
+  # Updated endpoints with query parameters instead of request body
   /screenshot:
     post:
       summary: Takes a screenshot of the provided URL
@@ -134,37 +169,3 @@ paths:
                 properties:
                   url:
                     type: string
-components:
-  schemas:
-    FileSchema:
-      type: object
-      properties:
-        path:
-          type: string
-          description: relative path of the file
-        content:
-          type: string
-          description: Content of the file
-    EditSchema:
-      type: object
-      properties:
-        path:
-          type: string
-          description: relative path of the file
-        new_content:
-          type: string
-          description: new Content of the file
-    ArrayFileSchema:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            $ref: "#/components/schemas/FileSchema"
-    ArrayEditSchema:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            $ref: "#/components/schemas/EditSchema"
