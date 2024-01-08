@@ -21,12 +21,12 @@ def generate_cache_key(url: str) -> str:
     return md5(normalized_url.encode()).hexdigest()
 
 # Asynchronous Screenshot Capture with ScreenshotOne API
-async def capture_screenshot_with_screenshotone(url: str) -> str:
+async def capture_screenshot_with_screenshotone(url: str, is_code_url: bool = False) -> str:
     cache_key = generate_cache_key(url)
     cached_path = cache_dir / f"{cache_key}.png"
 
-    # Check if cached screenshot exists
-    if cached_path.is_file():
+    # Skip cache if it's a code URL from the current project
+    if not is_code_url and cached_path.is_file(): 
         return str(cached_path)
 
     async with httpx.AsyncClient(timeout=60) as client:
@@ -65,7 +65,7 @@ def setup_driver():
     return driver
 
 # Function to take a screenshot with Selenium
-def capture_screenshot(url):
+async def capture_screenshot(url):
     driver = setup_driver()
     driver.get(url)
     total_height = driver.execute_script('return document.body.parentNode.scrollHeight')
