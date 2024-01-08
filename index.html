@@ -1,43 +1,129 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xiao Yan</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+      .hidden {
+        @apply invisible absolute; 
+      }
+      .card {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+      }
+      .card-content {
+          flex-grow: 1;
+      }
+      .explore-button {
+          align-self: end;
+          margin-bottom: 1rem;
+          margin-right: 1rem;
+      }
+      /* .card:hover {
+          border: 2px solid rgba(5, 150, 105, 0.4);
+          box-shadow: none;
+      } */
+  </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Hey, I'm Yan, a software developer</h1>
-            <p>I make lot of stuff - follow me for what I'm working on.</p>
-        </header>
-        <section class="social-links">
-            <a href="https://twitter.com/tb_xy09">Twitter</a> | <a href="https://github.com/tbxy09">Github</a>
-        </section>
-        <section class="portfolio">
-            <div class="card">
-                <h2>JustWondering</h2>
-                <p> Coding Assistant</p>
-                <a href="https://github.com/tbxy09/JustWondering">Explore</a>
-            </div>
-            <div class="card">
-                <h2>Atlas Assistant</h2>
-                <p>Easing your startup journey with Atlas Assistant. Simplifying every step for small teams.</p>
-                <a href="https://chat.openai.com/g/g-zr3n4OuMB-atlas-assistant">Explore</a>
-            </div>
-            <div class="card">
-                <h2>Cloner</h2>
-                <p>Enhanced guide for website design and data interaction</p>
-                <a href="https://chat.openai.com/g/g-Ek3fdlDdA-cloner">Explore</a>
-                <p> Page created by Cloner</p>
-                <div><a href="./static/DTpuaZUnO4/index.html">Latest Trending Repositories</a></div>
-                <div><a href="./static/navheader/index.html">Hello World with Nav Head</a></div></div>
-                <!-- <div><a href="./static/VFEPwFdcOo/index.html">Enhanced Starter Webpage</a></div></div> -->
-            </div>
-            <!-- Additional cards can be added here -->
-        </section>
+<body class="bg-gray-100 font-'Open Sans'">
+    <header class="text-center p-6 bg-white">
+    <h1 class="text-4xl font-bold">Hey, I'm Yan, a software developer 👨‍💻</h1>
+    <p class="text-xl">I make a lot of stuff - follow me for what I'm working on. 🚀</p>
+    <div class="flex justify-center space-x-4 mt-4">
+        <a href="https://twitter.com/tb_xy09" class="text-blue-500"><i class="fab fa-twitter"></i> Twitter</a>
+        <span>|</span>
+        <a href="https://github.com/tbxy09" class="text-gray-900"><i class="fab fa-github"></i> Github</a>
+    </div>
+</header>
+    <section class="relative bg-gray-900" onmouseover="playGIF()" onmouseout="pauseGIF()">
+<img id="hero-gif" class="hidden absolute w-full" muted src="zoom_pan.gif" alt="Animation">
+  <script>
+    let gif = document.getElementById("hero-gif");
+
+    function playGIF() {
+      gif.style.display = "block";
+    }
+
+    function pauseGIF() {
+      gif.style.display = "none"; 
+    }
+  </script>
+  <div class="relative bg-gray-900 bg-opacity-60">
+    <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <div class="max-w-xl sm:mx-auto lg:max-w-2xl">
+        <h2 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+          Cloner 
+        </h2>
+        <p class="mt-8 text-lg text-gray-300">Clone and replicate the source site using a screenshot, while enabling continuous development and optimization capabilities.
+通过截图复制源站点前端代码，同时具备持续开发和优化功能。</p>
+      </div>
+    </div>
+    <button 
+      class="absolute bottom-0 right-0 mb-8 mr-8 bg-indigo-500 rounded-full py-4 px-8 text-white hover:bg-indigo-600">
+        <a href="https://chat.openai.com/g/g-Ek3fdlDdA-cloner" 
+            target="_blank"
+            class="inline-block w-full h-full">
+            Try Clone
+        </a>  
+    </button>
+  </div>
+
+  </section>
+    <div class="p-6 flex flex-wrap justify-center gap-4">
+        <!-- Cards start here -->
+        <div class="p-6 flex flex-wrap justify-center gap-4">
+  <div class="card bg-white rounded-lg shadow-lg overflow-hidden" style="width: 350px;">
+      <div class="p-6 flex items-center" style="background-color: #81C784;">
+          <img class="h-20 w-20 rounded-full" src="IndieBizGuide(1).png" alt="Placeholder image for the Atlas Assistant project">
+          <h3 class="ml-4 text-xl font-semibold">IndieBizGuide</h3>
+      </div>
+      <div class="card-content p-6">
+          <p>Easing your startup journey with Atlas Assistant. Simplifying every step for small teams.</p>
+      </div>
+      <button class="explore-button py-2 px-4 border border-gray-400 text-gray-600 rounded-full hover:bg-gray-100 transition duration-300">
+          <a href="https://chat.openai.com/g/g-zr3n4OuMB-atlas-assistant" 
+            target="_blank"
+            class="inline-block w-full h-full">
+            Explore
+        </a>  
+      </button>
+  </div>
+
+  <div class="card bg-white rounded-lg shadow-lg overflow-hidden" style="width: 350px;">
+      <div class="p-6 flex items-center" style="background-color: #81C784;">
+          <img class="h-20 w-20 rounded-full" src="cloner(1).png" alt="Placeholder image for the Cloner project">
+          <h3 class="ml-4 text-xl font-semibold">Cloner</h3>
+      </div>
+      <div class="card-content p-6">
+          <p>Clone and replicate the source site using a screenshot, while enabling continuous development and optimization capabilities.</p>
+          <div class="mt-3"><a href="#" class="text-gray-600 hover:text-gray-800 transition duration-300">Latest Trending Repositories</a></div>
+          <div><a href="#" class="text-gray-600 hover:text-gray-800 transition duration-300">Hello World with Nav Head</a></div>
+      </div>
+      <button class="explore-button py-2 px-4 border border-gray-400 text-gray-600 rounded-full hover:bg-gray-100 transition duration-300">
+        <a href="https://chat.openai.com/g/g-Ek3fdlDdA-cloner" 
+            target="_blank"
+            class="inline-block w-full h-full">
+            Explore
+        </a>      
+      </button>
+  </div>
+  <div class="card bg-white rounded-lg shadow-lg overflow-hidden" style="width: 350px;">
+      <div class="p-6 flex items-center" style="background-color: #81C784;">
+          <img class="h-20 w-20 rounded-full" src="justwondering(1).png" alt="Placeholder image for the JustWondering project">
+          <h3 class="ml-4 text-xl font-semibold">JustWondering</h3>
+      </div>
+      <div class="card-content p-6">
+          <p>Coding Assistant</p>
+      </div>
+      <button class="explore-button py-2 px-4 border border-gray-400 text-gray-600 rounded-full hover:bg-gray-100 transition duration-300">Explore</button>
+  </div>
+</div>
+        <!-- Cards end here -->
     </div>
 </body>
 </html>
