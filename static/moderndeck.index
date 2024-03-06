@@ -1,0 +1,137 @@
+<div class="deck-container">
+    <img src="https://i.imgur.com/QXUUPta.png" alt="Deck" class="deck-image">
+  <svg class="deck-elements" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- String lights -->
+    <path class="string-lights" d="M20,140 Q200,50 380,140" stroke="black" stroke-width="2" fill="none" />
+    <circle class="light-bulb" cx="70" cy="120" r="6" fill="yellow" />
+    <circle class="light-bulb" cx="200" cy="80" r="6" fill="yellow" />
+    <circle class="light-bulb" cx="330" cy="120" r="6" fill="yellow" />
+
+    <!-- Potted plant -->
+    <g class="potted-plant" transform="translate(300, 160)">
+      <rect x="0" y="0" width="30" height="25" fill="brown" />
+      <circle cx="15" cy="-20" r="15" fill="green" />
+    </g>
+
+    <!-- Throw pillows -->
+    <g class="throw-pillow pillow-left" transform="translate(50, 170)">
+      <rect x="0" y="0" width="30" height="20" fill="navy" transform="rotate(-10 15 10)" />
+      <circle cx="15" cy="10" r="8" fill="white" />
+    </g>
+    <g class="throw-pillow pillow-right" transform="translate(130, 170)">
+      <rect x="0" y="0" width="30" height="20" fill="white" transform="rotate(10 15 10)" />
+      <circle cx="15" cy="10" r="8" fill="navy" />
+    </g>
+  </svg>
+
+  <!-- Customization controls -->
+  <div class="controls">
+    <button class="btn-lights">Toggle Lights</button>
+    <input type="color" class="pillow-color-left" value="#000080">
+    <input type="color" class="pillow-color-right" value="#FFFFFF">
+    <input type="range" class="plant-size" min="0.5" max="1.5" step="0.1" value="1">
+  </div>
+</div>
+
+<style>
+  .deck-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .deck-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .deck-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .light-bulb {
+    opacity: 0.8;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  .light-bulb:hover {
+    opacity: 1;
+  }
+
+  .potted-plant, .throw-pillow {
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .potted-plant:hover, .throw-pillow:hover {
+    transform: scale(1.1);
+  }
+
+  .controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+  }
+</style>
+
+<script>
+  const lightBulbs = document.querySelectorAll('.light-bulb');
+  const btnLights = document.querySelector('.btn-lights');
+  const pillowLeft = document.querySelector('.pillow-left rect');
+  const pillowRight = document.querySelector('.pillow-right rect');
+  const pillowColorLeft = document.querySelector('.pillow-color-left');
+  const pillowColorRight = document.querySelector('.pillow-color-right');
+  const pottedPlant = document.querySelector('.potted-plant');
+  const plantSize = document.querySelector('.plant-size');
+
+  let lightsOn = true;
+
+  btnLights.addEventListener('click', () => {
+    lightsOn = !lightsOn;
+    lightBulbs.forEach(bulb => {
+      bulb.style.fill = lightsOn ? 'yellow' : 'white';
+    });
+  });
+
+  pillowColorLeft.addEventListener('input', () => {
+    pillowLeft.style.fill = pillowColorLeft.value;
+  });
+
+  pillowColorRight.addEventListener('input', () => {
+    pillowRight.style.fill = pillowColorRight.value;
+  });
+
+  plantSize.addEventListener('input', () => {
+    pottedPlant.setAttribute('transform', `translate(300, 160) scale(${plantSize.value})`);
+  });
+</script>
+
+Explanation:
+
+1. The structure remains similar to the previous example, with the deck image and SVG elements positioned using CSS.
+
+2. The potted plant and throw pillows are grouped using <g> elements, and their positions are set using the transform attribute. This allows for easier manipulation of their positions and sizes.
+
+3. A new <div> element with the class "controls" is added to contain the customization controls.
+
+4. CSS styles are updated to include hover effects for the potted plant and throw pillows, making them scale up slightly when hovered over.
+
+5. The JavaScript code is expanded to include:
+   - A button to toggle the string lights on and off.
+   - Color input fields to change the colors of the throw pillows dynamically.
+   - A range input to control the size of the potted plant.
+
+6. Event listeners are added to the controls to update the corresponding SVG elements when the user interacts with them.
+
+This enhanced version provides a more engaging and customizable experience, allowing users to interact with the deck design elements, toggle the lights, change pillow colors, and adjust the plant size. The use of transforms and grouped elements makes the code more modular and easier to maintain.
+
+Remember to replace "https://i.imgur.com/YAA0xyQ.jpeg" with the actual URL of your deck picture.
+
+Feel free to further expand on this concept by adding more customization options, animations, or even the ability to drag and reposition elements for a truly interactive deck design tool.
